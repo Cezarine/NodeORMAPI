@@ -1,15 +1,18 @@
 'use strict';
 module.exports = (sequelize, DataTypes) =>
 {
-  const Pessoas = sequelize.define('Pessoas', {
+  const pessoas = sequelize.define('pessoas', {
     nome: DataTypes.STRING,
     ativo: DataTypes.BOOLEAN,
     email: DataTypes.STRING,
     role: DataTypes.STRING  
   }, {});
-  Pessoas.associate = function (models)
+  pessoas.associate = function (models)
   {
-
+ /*pessoas.hasMany(models.turmas);
+    pessoas.hasMany(models.matriculas, {
+      foreingKey: 'estudante_id'
+    });*/
   };
-  return Pessoas;
+  return pessoas;
 }
