@@ -1,18 +1,34 @@
 'use strict';
-module.exports = (sequelize, DataTypes) =>
-{
+module.exports = (sequelize, DataTypes) =>{
   const pessoas = sequelize.define('pessoas', {
-    nome: DataTypes.STRING,
+    nome: {
+      type: DataTypes.STRING,
+      validate: {
+        ValidaPessoas: function(dado){
+          if(dado.length < 3) throw new Error('Nome deve conter mais que 3 caracteres');
+        }
+      }
+    },
     ativo: DataTypes.BOOLEAN,
-    email: DataTypes.STRING,
+    email: {
+      type: DataTypes.STRING,
+      validate: {
+        isEmail: {
+          args: true,
+          msg: 'E-mail inválido'
+        }
+      }
+    },
     role: DataTypes.STRING  
-  }, {});
-  pessoas.associate = function (models)
-  {
- /*pessoas.hasMany(models.turmas);
-    pessoas.hasMany(models.matriculas, {
-      foreingKey: 'estudante_id'
-    });*/
-  };
+  }, {
+    paranoid: true,
+    defaultScope:{
+      where: {ativo: true}
+    },
+    scopes: {
+      todos: { where: {} }, 
+      //etc: {contraint: valor}
+    }
+  });
   return pessoas;
 }

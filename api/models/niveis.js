@@ -1,10 +1,10 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const niveis = sequelize.define('niveis', {
-    descr_nivel: DataTypes.STRING
-  }, {});
-  niveis.associate = function(models) {
-//    niveis.hasMany(models.turmas);
-  };
+    descri_nivel: DataTypes.STRING
+  }, {paranoid: true});
+  //niveis.associate = function(models) {
+
+  //};
   return niveis;
 };

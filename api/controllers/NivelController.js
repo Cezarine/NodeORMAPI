@@ -1,9 +1,11 @@
-const vDataBase = require('../models/index.js');
+//const vDataBase = require('../models/index.js');
+const {NiveisServices} = require('../services');
+const niveisServices = new NiveisServices();
 
 class NivelController{
     static async getAllNiveis(req, res){
         try {
-            const AllNiveis = await vDataBase.niveis.findAll(); 
+            const AllNiveis = await niveisServices.getAllRegisters(); 
             return res.status(200).json(AllNiveis);     
         } catch (error) {
             return res.status(500).json(error.menssage);    
